@@ -34,6 +34,30 @@ app.post('/createGallery/', async(req, res)=>{
     }
 })
 
+app.post('/updateLikes/:_id', async(req,res)=>{
+    const {_id} = req.params;
+    try{
+        const picture = await Pics.findById(_id);
+        const UpLikes = await Pics.findByIdAndUpdate(_id,{likes: picture.likes+1})
+        res.json({Success: 'Liked'})
+    }catch(error){
+        res.json({Failed:'Something went wrong'})
+    }
+})
+
+app.post('/updateComments/:_id', async(req, res)=>{
+    const {_id} = req.params;
+    const {comment}= req.body;
+    try{
+        const picture = await Pics.findById(_id);
+        const UpLikes = await Pics.findByIdAndUpdate(_id,{comments: [...picture.comments, comment]})
+        res.json({Success: 'Comment added'})
+    }catch(error){
+        res.json({Failed:'Something went wrong'})
+    }
+})
+
+
 app.listen(5000,()=>{
     console.log('Server live on port 5000')
 })
