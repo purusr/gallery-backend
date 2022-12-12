@@ -54,10 +54,20 @@ app.post('/updateComments/:_id', async(req, res)=>{
         res.json({Success: 'Comment added'})
     }catch(error){
         res.json({Failed:'Something went wrong'})
+
     }
 })
 
+app.get('/getComment/:_id', async(req, res)=>{
+    const {_id} = req.params;
 
+    try{
+        const comnts = await Pics.findById(_id);
+        res.json(comnts)
+    }catch(error){
+        res.json({failed: 'Something went wrong'})
+    }
+})
 app.listen(5000,()=>{
     console.log('Server live on port 5000')
 })
