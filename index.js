@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import Pics from "./models/Pics.js"
 
 
-mongoose.connect('mongodb+srv://krish-node:Krishna8686@cluster0.emvic.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://krish-node:Krishna8686@cluster0.emvic.mongodb.net/fitAuth?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=>{console.log('Db connected successfully')})
 .catch((error) => console.log('Db has connection error'))
 const app = express();
