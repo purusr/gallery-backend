@@ -8,7 +8,7 @@ import User from "./models/User.js";
 import Pics from "./models/Pics.js";
 
 
-mongoose.connect('mongodb+srv://krish-node:Krishna8686@cluster0.emvic.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://krish-node:Krish0808@cluster0.emvic.mongodb.net/?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=>{console.log('Db connected successfully')})
 .catch((error) => console.log('Db has connection error'))
 const app = express();
@@ -53,10 +53,11 @@ app.post('/updateLikes/:_id', async(req,res)=>{
 
 app.post('/updateComments/:_id', async(req, res)=>{
     const {_id} = req.params;
-    const {comment}= req.body;
+    const {comment, userid}= req.body;
     try{
+        const user = await User.findById(userid)
         const picture = await Pics.findById(_id);
-        const UpLikes = await Pics.findByIdAndUpdate(_id,{comments: [...picture.comments, comment]})
+        const UpLikes = await Pics.findByIdAndUpdate(_id,{comments: [...picture.comments, {comment:comment,username: user.name}]})
         res.json({Success: 'Comment added'})
     }catch(error){
         res.json({Failed:'Something went wrong'})
